@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_TYPE_HPP
-#define LATTICE_TYPE_HPP
+#ifndef PL0_COMPILER_TYPE_HPP
+#define PL0_COMPILER_TYPE_HPP
 
 namespace Symbol {
 
@@ -31,4 +31,4 @@ namespace Symbol {
             ~ProductType() override = default;
     };
 }
-#endif //LATTICE_TYPE_HPP
+#endif //PL0_COMPILER_TYPE_HPP

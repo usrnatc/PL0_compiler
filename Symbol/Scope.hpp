@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_SCOPE_HPP
-#define LATTICE_SCOPE_HPP
+#ifndef PL0_COMPILER_SCOPE_HPP
+#define PL0_COMPILER_SCOPE_HPP
 
 #include <memory>
 #include "SymbolEntry.hpp"
@@ -94,4 +94,4 @@ namespace Symbol {
     };
 }
 
-#endif //LATTICE_SCOPE_HPP
+#endif //PL0_COMPILER_SCOPE_HPP

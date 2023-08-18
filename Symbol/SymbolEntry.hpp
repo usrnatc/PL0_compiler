@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_SYMBOLENTRY_HPP
-#define LATTICE_SYMBOLENTRY_HPP
+#ifndef PL0_COMPILER_SYMBOLENTRY_HPP
+#define PL0_COMPILER_SYMBOLENTRY_HPP
 
 #include "Type.hpp"
 #include "Scope.hpp"
@@ -139,4 +139,4 @@ namespace Symbol {
     };
 }
 
-#endif //LATTICE_SYMBOLENTRY_HPP
+#endif //PL0_COMPILER_SYMBOLENTRY_HPP

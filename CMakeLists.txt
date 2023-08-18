@@ -17,4 +17,4 @@ add_executable(
         Symbol/Scope.hpp
         Symbol/SymbolTable.hpp
         Symbol/SymbolEntry.hpp
-        Parser/Location.hpp)
+        Parser/Location.hpp Parser/Serialise.hpp)

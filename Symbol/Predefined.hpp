@@ -2,10 +2,10 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_PREDEFINED_HPP
-#define LATTICE_PREDEFINED_HPP
+#ifndef PL0_COMPILER_PREDEFINED_HPP
+#define PL0_COMPILER_PREDEFINED_HPP
 
 namespace Symbol {
 }
 
-#endif //LATTICE_PREDEFINED_HPP
+#endif //PL0_COMPILER_PREDEFINED_HPP

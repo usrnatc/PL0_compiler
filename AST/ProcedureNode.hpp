@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_PROCEDURENODE_HPP
-#define LATTICE_PROCEDURENODE_HPP
+#ifndef PL0_COMPILER_PROCEDURENODE_HPP
+#define PL0_COMPILER_PROCEDURENODE_HPP
 
 #include "AST.hpp"
 #include "Visitor.hpp"
@@ -64,4 +64,4 @@ namespace AST {
     };
 }
 
-#endif //LATTICE_PROCEDURENODE_HPP
+#endif //PL0_COMPILER_PROCEDURENODE_HPP

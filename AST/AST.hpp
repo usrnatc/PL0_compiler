@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_AST_HPP
-#define LATTICE_AST_HPP
+#ifndef PL0_COMPILER_AST_HPP
+#define PL0_COMPILER_AST_HPP
 
 #include <string>
 
@@ -19,4 +19,4 @@ namespace AST {
 
 }
 
-#endif //LATTICE_AST_HPP
+#endif //PL0_COMPILER_AST_HPP

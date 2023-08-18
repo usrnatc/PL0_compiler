@@ -2,8 +2,8 @@
 // Created by user on 17-August-2023.
 //
 
-#ifndef LATTICE_LOCATION_HPP
-#define LATTICE_LOCATION_HPP
+#ifndef PL0_COMPILER_LOCATION_HPP
+#define PL0_COMPILER_LOCATION_HPP
 
 #include <string>
 #include <sstream>
@@ -260,4 +260,4 @@ namespace Parser {
     };
 }
 
-#endif //LATTICE_LOCATION_HPP
+#endif //PL0_COMPILER_LOCATION_HPP

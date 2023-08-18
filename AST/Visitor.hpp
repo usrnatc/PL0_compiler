@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_VISITOR_HPP
-#define LATTICE_VISITOR_HPP
+#ifndef PL0_COMPILER_VISITOR_HPP
+#define PL0_COMPILER_VISITOR_HPP
 
 #include "AST.hpp"
 #include "StatementNode.hpp"
@@ -39,4 +39,4 @@ namespace AST {
     };
 }
 
-#endif //LATTICE_VISITOR_HPP
+#endif //PL0_COMPILER_VISITOR_HPP

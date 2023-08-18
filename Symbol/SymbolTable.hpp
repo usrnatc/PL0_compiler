@@ -2,12 +2,13 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_SYMBOLTABLE_HPP
-#define LATTICE_SYMBOLTABLE_HPP
+#ifndef PL0_COMPILER_SYMBOLTABLE_HPP
+#define PL0_COMPILER_SYMBOLTABLE_HPP
 
 #include "Scope.hpp"
 #include "SymbolEntry.hpp"
 #include <memory>
+#include <stdexcept>
 
 namespace Symbol {
 
@@ -18,9 +19,8 @@ namespace Symbol {
         public:
             SymbolTable()
             {
-                ProcedureEntry predefined = ProcedureEntry("<predefined>", nullptr);
             }
     };
 }
 
-#endif //LATTICE_SYMBOLTABLE_HPP
+#endif //PL0_COMPILER_SYMBOLTABLE_HPP

@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_EXPRESSIONNODE_HPP
-#define LATTICE_EXPRESSIONNODE_HPP
+#ifndef PL0_COMPILER_EXPRESSIONNODE_HPP
+#define PL0_COMPILER_EXPRESSIONNODE_HPP
 
 #include "AST.hpp"
 #include "Visitor.hpp"
@@ -128,4 +128,4 @@ namespace AST {
             { return op + expression->toString(); }
     };
 }
-#endif //LATTICE_EXPRESSIONNODE_HPP
+#endif //PL0_COMPILER_EXPRESSIONNODE_HPP

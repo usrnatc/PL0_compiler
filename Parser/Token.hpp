@@ -2,8 +2,8 @@
 // Created by user on 16-August-2023.
 //
 
-#ifndef LATTICE_TOKEN_HPP
-#define LATTICE_TOKEN_HPP
+#ifndef PL0_COMPILER_TOKEN_HPP
+#define PL0_COMPILER_TOKEN_HPP
 
 #include <string>
 
@@ -39,4 +39,4 @@ namespace Parser {
     };
 }
 
-#endif //LATTICE_TOKEN_HPP
+#endif //PL0_COMPILER_TOKEN_HPP
