@@ -7,6 +7,7 @@
 
 #include "Scope.hpp"
 #include "SymbolEntry.hpp"
+#include "../Internal/ErrorUtil.hpp"
 #include <memory>
 #include <stdexcept>
 
@@ -19,6 +20,7 @@ namespace Symbol {
         public:
             SymbolTable()
             {
+                throw Internal::not_implemented(__func__);
             }
     };
 }
