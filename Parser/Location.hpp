@@ -9,18 +9,27 @@
 #include <sstream>
 #include <mutex>
 #include <vector>
+#include <stdexcept>
+#include <cstdint>
+#include <algorithm>
 
 namespace Parser {
 
-    class LineInfo
+    const int NO_POSITION = 0;
+
+    struct LineInfo
     {
-            int offset;
-            std::string filename;
-            int line;
-            int column;
+        int offset;
+        std::string filename;
+        int line;
+        int column;
 
-        public:
-
+        LineInfo(int offset, std::string filename, int line, int column)
+                : offset(offset)
+                  , filename(std::move(filename))
+                  , line(line)
+                  , column(column)
+        {}
     };
 
     class SourceFile
@@ -123,28 +132,130 @@ namespace Parser {
 
             void setLinesForContent(const std::vector<std::byte> &content)
             {
-//                void File::SetLinesForContent(const std::vector<std::byte>& content) {
-//                    std::vector<int> lines;
-//                    int line = 0;
-//                    for (std::size_t offset = 0; offset < content.size(); ++offset) {
-//                        std::byte b = content[offset];
-//                        if (line >= 0) {
-//                            lines.push_back(line);
-//                        }
-//                        line = -1;
-//                        if (b == static_cast<std::byte>('\n')) {
-//                            line = static_cast<int>(offset) + 1;
-//                        }
-//                    }
-//
-//                    // set lines table
-//                    {
-//                        std::lock_guard<std::mutex> lock(mutex);
-//                        this->lines = lines;
-//                    }
-//                }
+                std::vector<int> l;
+                int line = 0;
+                for (std::size_t offset = 0;
+                     offset < content.size(); ++offset) {
+                    std::byte b = content[offset];
+                    if (line >= 0) {
+                        l.push_back(line);
+                    }
+                    line = -1;
+                    if (b == static_cast<std::byte>('\n')) {
+                        line = static_cast<int>(offset) + 1;
+                    }
+                }
 
-                // TODO: implement this
+                {
+                    std::lock_guard<std::mutex> lock(mutex);
+                    this->lines = l;
+                }
+            }
+
+            int lineStart(int line)
+            {
+                if (line < 1)
+                    throw std::invalid_argument("expected line >= 1");
+
+                int result;
+
+                {
+                    std::lock_guard<std::mutex> lock(mutex);
+
+                    if (line > lines.size()) {
+                        throw std::invalid_argument(
+                                "expected line < file size");
+                    }
+
+                    result = base + lines[line - 1];
+                }
+
+                return result;
+            }
+
+            void addLineColumnInfo(int offset, std::string filename, int line,
+                                   int column)
+            {
+                std::lock_guard<std::mutex> lock(mutex);
+
+                int i = infos.size();
+
+                if ((i == 0 || infos[i - 1].offset < offset) && offset < size) {
+                    infos.emplace_back(offset, std::move(filename), line,
+                                       column);
+                }
+            }
+
+            static int searchInts(const std::vector<int> &a, int x)
+            {
+                int i = 0;
+                int j = a.size();
+
+                while (i < j) {
+                    int h = ((int) (((std::uint64_t) i + j))) >> 1;
+
+                    if (a[h] <= x) {
+                        i = h + 1;
+                    } else {
+                        j = h;
+                    }
+                }
+
+                return i - 1;
+            }
+
+            int searchLineInfos(const std::vector<LineInfo> &a, int x)
+            {
+                // FIXME: we shouldn't be sorting this every time we want to search
+                std::sort(infos.begin(), infos.end(),
+                          [](const LineInfo &lhs, const LineInfo &rhs) {
+                              return lhs.offset < rhs.offset;
+                          });
+
+                auto it = std::lower_bound(infos.begin(), infos.end(), x,
+                                           [](const LineInfo &info, int value) {
+                                               return info.offset < value;
+                                           });
+
+                return static_cast<int>(std::distance(infos.begin(), it)) - 1;
+            }
+
+            LineInfo unpack(int offset, bool adjusted)
+            {
+                int line;
+                int column;
+                std::string filename;
+
+                {
+                    std::lock_guard<std::mutex> lock(mutex);
+
+                    filename = std::move(name);
+                    int i = searchInts(lines, offset);
+
+                    if (i >= 0) {
+                        line = i + 1;
+                        column = offset - lines[i] + 1;
+                    }
+
+                    if (adjusted && !infos.empty()) {
+                        LineInfo alt = infos[i];
+                        filename = std::move(alt.filename);
+                        i = searchLineInfos(infos, offset);
+
+                        if (i >= 0) {
+                            int d = line - (i + 1);
+                            line = alt.line + d;
+
+                            if (!alt.column) { // alt.column == 0
+                                column = 0;
+                            } else if (!d) { // d == 0
+                                column = alt.column + (offset - alt.offset);
+                            }
+                        }
+                    }
+                }
+
+                return {offset, filename, line, column};
             }
     };
 }
